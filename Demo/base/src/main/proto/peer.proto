@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.neutron.vdm";
+option java_outer_classname = "BaseVirtualDevice";
+option objc_class_prefix = "VDM";
+
+package vdm;
+
+// The peer service definition.
+service Peer {
+    // Sends a greeting
+    rpc getDevices (VirtualDeviceListRequest) returns (VirtualDeviceListReply) {}
+}
+
+enum DeviceType {
+    UNKNOWN = 0;
+    AUDIO_OUT = 1;
+    AUDIO_IN = 2;
+    VIDEO_OUT = 3;
+    VIDEO_IN = 4;
+}
+
+message VirtualDeviceListRequest {
+    DeviceType type = 1;
+}
+
+message BasicDeviceInfo {
+    string name = 1;
+    DeviceType type = 2;
+}
+
+// The response message containing the device info
+message VirtualDeviceListReply {
+  repeated BasicDeviceInfo devices = 1;
+}
